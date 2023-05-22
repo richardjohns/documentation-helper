@@ -15,14 +15,12 @@ load_dotenv()
 os.environ['PINECONE_API_KEY'] = os.getenv('PINECONE_API_KEY')
 os.environ['PINECONE_ENVIRONMENT_REGION'] = os.getenv('PINECONE_ENVIRONMENT_REGION')
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
+os.environ['INDEX_NAME'] = os.getenv('INDEX_NAME')
 
 pinecone.init(
     api_key=os.environ["PINECONE_API_KEY"],
     environment=os.environ["PINECONE_ENVIRONMENT_REGION"],
 )
-
-INDEX_NAME = "personal-knowledgebase"
-
 
 def run_llm(query: str, chat_history: List[Dict[str, Any]] = []):
     embeddings = OpenAIEmbeddings(openai_api_key=os.environ["OPENAI_API_KEY"])

@@ -17,13 +17,12 @@ load_dotenv()
 os.environ['PINECONE_API_KEY'] = os.getenv('PINECONE_API_KEY')
 os.environ['PINECONE_ENVIRONMENT_REGION'] = os.getenv('PINECONE_ENVIRONMENT_REGION')
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
+os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
 
 pinecone.init(
     api_key=os.environ["PINECONE_API_KEY"],
     environment=os.environ["PINECONE_ENVIRONMENT_REGION"],
 )
-INDEX_NAME = "personal-knowledgebase"
-
 # Define a retry decorator for network operations
 @retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000, wait_exponential_max=10000)
 def load_and_split_file(file_path):
@@ -77,7 +76,7 @@ def ingest_docs(folder_path):
 
     embeddings = OpenAIEmbeddings()
     print(f"Going to add {len(documents)} to Pinecone")
-    Pinecone.from_documents(documents, embeddings, index_name=INDEX_NAME)
+    Pinecone.from_documents(documents, embeddings, index_name=os.getenv('OPENAI_API_KEY'))
     print("****Loading to vectorestore done ***")
 
 if __name__ == "__main__":
