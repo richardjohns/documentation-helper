@@ -26,7 +26,7 @@ def run_llm(query: str, chat_history: List[Dict[str, Any]] = []):
     embeddings = OpenAIEmbeddings(openai_api_key=os.environ["OPENAI_API_KEY"])
     docsearch = Pinecone.from_existing_index(
         embedding=embeddings,
-        index_name=INDEX_NAME,
+        index_name=os.environ['INDEX_NAME'],
     )
     chat = ChatOpenAI(
         verbose=True,
